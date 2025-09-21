@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>موقع رفع مانجا</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>أهلاً بك في موقع رفع المانجا!</h1>
+        {% if 'user' in session %}
+        <p>مرحبا, {{ session['user']['email'] }}</p>
+        <p><a href="{{ url_for('upload') }}">اضغط هنا لرفع فصل جديد</a></p>
+        <p><a href="{{ url_for('logout') }}">تسجيل الخروج</a></p>
+        {% else %}
+        <p><a href="{{ url_for('login') }}">تسجيل الدخول</a></p>
+        <p><a href="{{ url_for('register') }}">إنشاء حساب</a></p>
+        {% endif %}
+
+        <h2>قائمة المانجا</h2>
+        <ul class="manga-list">
+            {% for manga in mangas %}
+            <li class="manga-item">
+                <h3>{{ manga['name'] }}</h3>
+                <p>البلد: {{ manga['country'] }}</p>
+                {% if manga['cover_url'] %}
+                <img src="{{ manga['cover_url'] }}" alt="{{ manga['name'] }} cover">
+                {% else %}
+                <p>لا يوجد غلاف.</p>
+                {% endif %}
+            </li>
+            {% else %}
+            <p>لا توجد مانجا حالياً.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
