@@ -1,4 +1,4 @@
-# app.py
+# api/app.py
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from supabase import create_client, Client
 import os
@@ -99,7 +99,4 @@ def upload():
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
 
